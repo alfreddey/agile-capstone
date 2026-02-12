@@ -32,5 +32,11 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
-    - name: Run Manual Assertions
-      run: java -ea -cp target/classes org.example.repository.InMemoryTaskRepositoryTest
+    - name: Run Pure Java Tests
+      run: |
+        # 1. Compile both main and test classes
+        mvn test-compile
+        
+        # 2. Run using BOTH classes and test-classes in the classpath
+        # Use ':' to separate paths on Linux (GitHub Runners)
+        java -ea -cp "target/classes:target/test-classes" org.example.repository.InMemoryTaskRepositoryTest
