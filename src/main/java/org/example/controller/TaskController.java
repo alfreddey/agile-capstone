@@ -4,6 +4,7 @@ import org.example.model.Task;
 import org.example.repository.TaskRepository;
 import org.example.ui.TaskUI;
 
+import java.io.Console;
 import java.util.Scanner;
 
 public class TaskController {
@@ -18,27 +19,42 @@ public class TaskController {
 
   public void start() {
 
-    taskUI.displayHomeMenu();
-    System.out.print("\nEnter your choice: ");
 
-    var opt = scanner.nextLine();
 
-    switch (opt) {
-      case "1":
-        var task = createTask();
-        taskRepository.create(task);
-        break;
-      case "2":
-        var taskId = deleteTask();
-        taskRepository.delete(taskId);
-        break;
-      case "3":
-        displayTasks();
-        break;
-      default:
-        throw new RuntimeException("Invalid option");
+    try {
+      do {
+        taskUI.displayHomeMenu();
+        System.out.print("\nEnter your choice: ");
+
+        var opt = scanner.nextLine();
+
+        switch (opt) {
+          case "1":
+            var task = createTask();
+            taskRepository.create(task);
+            break;
+          case "2":
+            var taskId = deleteTask();
+            taskRepository.delete(taskId);
+            break;
+          case "3":
+            displayTasks();
+            break;
+          default:
+            throw new Exception("Invalid option");
+        }
+
+        clearScreen();
+      } while (true);
+    } catch (Exception e) {
+      System.out.println(e.getMessage());
     }
 
+  }
+
+  public static void clearScreen() {
+    System.out.print("\033[H\033[2J");
+    System.out.flush();
   }
 
   private void displayTasks() {
