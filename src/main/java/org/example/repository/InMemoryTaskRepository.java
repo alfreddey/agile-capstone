@@ -9,13 +9,13 @@ import java.util.Map;
 public class InMemoryTaskRepository implements TaskRepository {
   private final Map<String, Task> tasks;
 
-  InMemoryTaskRepository(Map<String, Task> tasks) {
+  public InMemoryTaskRepository(Map<String, Task> tasks) {
     this.tasks = tasks;
   }
 
   @Override
   public Task create(Task task) {
-    return tasks.put(task.id(), task);
+    return tasks.put(Integer.toString(tasks.size() + 1), task);
   }
 
   @Override
