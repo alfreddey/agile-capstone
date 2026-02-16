@@ -15,7 +15,7 @@ public class InMemoryTaskRepository implements TaskRepository {
 
   @Override
   public Task create(Task task) {
-    return tasks.put(task.id(), task);
+    return tasks.put(Integer.toString(tasks.size() + 1), task);
   }
 
   @Override

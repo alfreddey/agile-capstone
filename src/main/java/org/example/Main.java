@@ -3,6 +3,7 @@ package org.example;
 import org.example.controller.TaskController;
 import org.example.model.Task;
 import org.example.repository.InMemoryTaskRepository;
+import org.example.service.TaskServiceImpl;
 import org.example.ui.TaskUI;
 
 import java.util.HashMap;
@@ -17,7 +18,7 @@ public class Main {
     map.put("3", new Task("3", "dsfasd", "dfafe", "C"));
     map.put("12", new Task("12", "dsfasd", "dfafe", "C"));
 
-    var taskController = new TaskController(new TaskUI(), new InMemoryTaskRepository(map));
+    var taskController = new TaskController(new TaskUI(), new TaskServiceImpl(new InMemoryTaskRepository(map)));
 
     taskController.start();
   }

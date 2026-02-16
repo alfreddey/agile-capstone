@@ -8,7 +8,7 @@ import java.util.List;
 public class TaskServiceImpl implements TaskService {
   private final TaskRepository taskRepository;
 
-  TaskServiceImpl(TaskRepository taskRepository) {
+  public TaskServiceImpl(TaskRepository taskRepository) {
     this.taskRepository = taskRepository;
   }
 

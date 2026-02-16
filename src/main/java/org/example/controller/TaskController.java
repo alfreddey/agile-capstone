@@ -2,6 +2,8 @@ package org.example.controller;
 
 import org.example.model.Task;
 import org.example.repository.TaskRepository;
+import org.example.service.TaskService;
+import org.example.service.TaskServiceImpl;
 import org.example.ui.TaskUI;
 
 import java.io.Console;
@@ -10,11 +12,11 @@ import java.util.Scanner;
 public class TaskController {
   private final Scanner scanner = new Scanner(System.in);
   private final TaskUI taskUI;
-  private final TaskRepository taskRepository;
+  private final TaskService taskService;
 
-  public TaskController(TaskUI taskUI, TaskRepository taskRepository) {
+  public TaskController(TaskUI taskUI, TaskService taskService) {
     this.taskUI = taskUI;
-    this.taskRepository = taskRepository;
+    this.taskService = taskService;
   }
 
   public void start() {
@@ -31,11 +33,11 @@ public class TaskController {
         switch (opt) {
           case "1":
             var task = createTask();
-            taskRepository.create(task);
+            taskService.add(task);
             break;
           case "2":
             var taskId = deleteTask();
-            taskRepository.delete(taskId);
+            taskService.delete(taskId);
             break;
           case "3":
             displayTasks();
@@ -58,7 +60,7 @@ public class TaskController {
   }
 
   private void displayTasks() {
-    taskRepository.getAll().forEach(System.out::println);
+    taskService.getAll().forEach(System.out::println);
   }
 
   private String deleteTask() {
